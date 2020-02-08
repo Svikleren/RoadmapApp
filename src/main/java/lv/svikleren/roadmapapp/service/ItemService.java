@@ -6,6 +6,7 @@ import lv.svikleren.roadmapapp.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -15,14 +16,19 @@ public class ItemService {
     @Autowired
     ItemRepository itemRepository;
 
-    public void addItem(Item item){
+    public void addItem(Item item) {
         itemRepository.save(item);
-        log.info("Item"+item.getName()+" added");
+        log.info("Item" + item.getName() + " added");
     }
 
-    public void editItem(Long id){
+    public void editItem(Long id) {
         Optional<Item> item = itemRepository.findById(id);
     }
 
-    public void deleteItem(){}
+    public void deleteItem() {
+    }
+
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
+    }
 }
