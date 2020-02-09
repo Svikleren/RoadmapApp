@@ -4,7 +4,8 @@ on: [push]
 
 jobs:
   build:
-
+    env:
+      CODECOV_TOKEN: '5e9a20a4-cf81-4342-b3b3-237fa4875ff3'
     runs-on: ubuntu-latest
 
     steps:
@@ -17,3 +18,7 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: JacocoCheck
+      run: ./gradlew jacocoTestReport
+    - name: uploadReport
+      run: bash <(curl -s https://codecov.io/bash)
