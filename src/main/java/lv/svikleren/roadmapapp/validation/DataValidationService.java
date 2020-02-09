@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.regex.Pattern;
 
+import static lv.svikleren.roadmapapp.constants.Constants.REGEX_EMAIL;
 import static lv.svikleren.roadmapapp.constants.Constants.REGEX_PHONE;
 
 @Slf4j
@@ -21,6 +22,6 @@ public class DataValidationService {
     }
 
     private boolean validateEmailAddress(String email) {
-        return Pattern.compile(REGEX_PHONE).matcher(email).matches();
+        return Pattern.compile(REGEX_EMAIL).matcher(email).matches();
     }
 }
