@@ -3,11 +3,11 @@ package lv.svikleren.roadmapapp.service;
 import lombok.extern.slf4j.Slf4j;
 import lv.svikleren.roadmapapp.model.Person;
 import lv.svikleren.roadmapapp.repository.PersonRepository;
+import lv.svikleren.roadmapapp.validation.DataValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -16,13 +16,34 @@ public class PersonService {
     @Autowired
     PersonRepository personRepository;
 
-    public void addContact(Person person) {
-        personRepository.save(person);
-        log.info("Contact {} added", person.getName());
+    @Autowired
+    DataValidationService dataValidationService;
+
+    public List<Person> getAllContacts() {
+        return personRepository.findAll();
     }
 
-    public void editContact(Long id) {
-        Optional<Person> item = personRepository.findById(id);
+    public void addContact(Person addedPerson) {
+        if (dataValidationService.validateData(addedPerson)) {
+            personRepository.save(addedPerson);
+            log.info("Contact with id {} added", addedPerson.getId());
+        } else {
+            log.error("Contact with id {} can't be added - not valid data", addedPerson.getId());
+        }
+
+    }
+
+    public Person getItemById(Long id) {
+        return personRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid person Id:" + id));
+    }
+
+    public void updateContact(Person editedPerson) {
+        if (dataValidationService.validateData(editedPerson)) {
+            personRepository.save(editedPerson);
+            log.info("Contact with id {} updated", editedPerson.getId());
+        } else {
+            log.error("Contact with id {} can't be edited - not valid data", editedPerson.getId());
+        }
     }
 
     public void deleteContact(Long id) {
@@ -30,11 +51,4 @@ public class PersonService {
         log.info("Contact with id {} deleted", id);
     }
 
-    public List<Person> getAllItems() {
-        return personRepository.findAll();
-    }
-
-    public Person getItemById(Long id) {
-        return personRepository.findById(id).orElse(new Person());
-    }
 }

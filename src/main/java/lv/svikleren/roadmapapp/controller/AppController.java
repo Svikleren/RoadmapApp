@@ -2,11 +2,18 @@ package lv.svikleren.roadmapapp.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lv.svikleren.roadmapapp.model.Person;
 import lv.svikleren.roadmapapp.service.PersonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
+
+import static lv.svikleren.roadmapapp.constants.Constants.REDIRECT_TO_MAIN_PAGE;
 
 @Slf4j
 @Controller
@@ -18,34 +25,51 @@ public class AppController {
     @GetMapping("/")
     public String getAllContacts(Model model) {
 
-        model.addAttribute("contacts", personService.getAllItems());
+        model.addAttribute("contacts", personService.getAllContacts());
         return "index";
     }
 
-    @GetMapping("/addContact")
-    public String addContact(Model model) {
-
-        //model.addAttribute("item", personService.getItemById(id));
+    @GetMapping("/add")
+    public String showAddContactPage(Person person) {
         return "addContact";
     }
 
-    @GetMapping("/editContact/{id}")
-    public String editContact(@PathVariable Long id, Model model) {
+    @PostMapping("/addContact")
+    public String addContact(Person person, BindingResult result, Model model) {
 
-        model.addAttribute("contact", personService.getItemById(id));
+        if (result.hasErrors()) {
+            return "addContact";
+        }
+
+        personService.addContact(person);
+        return REDIRECT_TO_MAIN_PAGE;
+    }
+
+    @GetMapping("/editContact/{id}")
+    public String showEditContactPage(@PathVariable Long id, Model model) {
+
+        Person person = personService.getItemById(id);
+        model.addAttribute("person", person);
+
         return "editContact";
     }
 
-    @GetMapping("/deleteContact/{id}")
-    public String deleteContact(@PathVariable Long id, Model model) {
+    @PostMapping("/updateContact/{id}")
+    public String updateContact(@PathVariable("id") Long id, @Valid Person person, BindingResult result,
+                                Model model) {
+        if (result.hasErrors()) {
+            person.setId(id);
+            return "editContact";
+        }
 
-        //model.addAttribute("item", personService.getItemById(id));
-        return "item";
+        personService.updateContact(person);
+        return REDIRECT_TO_MAIN_PAGE;
     }
 
-    @GetMapping("/test")
-    public String test(Model model) {
+    @GetMapping("deleteContact/{id}")
+    public String deleteContact(@PathVariable("id") Long id, Model model) {
 
-        return "main";
+        personService.deleteContact(id);
+        return REDIRECT_TO_MAIN_PAGE;
     }
 }

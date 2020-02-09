@@ -20,7 +20,7 @@ public class Person {
     @Column(name = "contacts_group")
     private String group;
 
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     private String email;
 

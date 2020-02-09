@@ -19,7 +19,7 @@ public class InitDataBootstrap implements ApplicationListener<ContextRefreshedEv
         person1.setName("Anna");
         person1.setSurname("Ozolina");
         person1.setGroup("friends");
-        person1.setPhoneNumber(12345678);
+        person1.setPhoneNumber("12345678");
         person1.setEmail("aaa@bbb.lv");
         person1.setComments("comment1");
         personRepository.save(person1);
@@ -28,7 +28,7 @@ public class InitDataBootstrap implements ApplicationListener<ContextRefreshedEv
         person2.setName("Janis");
         person2.setSurname("Kalnins");
         person2.setGroup("colleagues");
-        person2.setPhoneNumber(87654321);
+        person2.setPhoneNumber("87654321");
         person2.setEmail("bbb@aaa.lv");
         person2.setComments("comment2");
         personRepository.save(person2);
@@ -37,7 +37,7 @@ public class InitDataBootstrap implements ApplicationListener<ContextRefreshedEv
         person3.setName("Arvis");
         person3.setSurname("Kaulins");
         person3.setGroup("family");
-        person3.setPhoneNumber(12312312);
+        person3.setPhoneNumber("12312312");
         person3.setEmail("ccc@ddd.lv");
         person3.setComments("comment3");
         personRepository.save(person3);
