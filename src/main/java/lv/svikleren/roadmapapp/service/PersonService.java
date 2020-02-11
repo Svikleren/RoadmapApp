@@ -1,23 +1,21 @@
 package lv.svikleren.roadmapapp.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lv.svikleren.roadmapapp.model.Person;
 import lv.svikleren.roadmapapp.repository.PersonRepository;
 import lv.svikleren.roadmapapp.validation.DataValidationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class PersonService {
 
-    @Autowired
-    PersonRepository personRepository;
-
-    @Autowired
-    DataValidationService dataValidationService;
+    private final PersonRepository personRepository;
+    private final DataValidationService dataValidationService;
 
     public List<Person> getAllContacts() {
         return personRepository.findAll();
