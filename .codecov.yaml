@@ -4,7 +4,8 @@ coverage:
   range: 70...100
 
   status:
-    RoadmapApp:
+    # Learn more at http://docs.codecov.io/docs/codecov-yaml
+    project:
       default:
         enabled: yes
         target: auto
@@ -18,10 +19,5 @@ coverage:
     changes: false
 
 comment:
-  layout: "reach, diff, flags, files"
-  behavior: default
-  require_changes: false
-  require_base: no       
-  require_head: yes      
-  branches:               
-    - "master"
+  layout: "header, diff"
+  behavior: default  # update if exists else create new
