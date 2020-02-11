@@ -1,4 +1,4 @@
-name: Java CI
+name: JavaCI
 
 on: [push]
 
@@ -9,16 +9,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v1
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build
-    - name: JacocoCheck
-      run: ./gradlew jacocoTestReport
-    - name: uploadReport
-      run: bash <(curl -s https://codecov.io/bash)
+      run: ./gradlew build && ./gradlew jacocoTestReport
+    - name: Codecov
+      uses: codecov/codecov-action@v1.0.5
+      with:
+        name: RoadmapApp
+        file: ./build/reports/jacoco/test/jacocoTestReport.xml
+        token: ${{ secrets.CODECOV_TOKEN }}
+        fail_ci_if_error: true
