@@ -25,5 +25,5 @@ jobs:
       with:
         name: RoadmapApp
         file: ./build/reports/jacoco/test/jacocoTestReport.xml
-        token: ${{ secrets.CODECOV_TOKEN }}
+        token: '5e9a20a4-cf81-4342-b3b3-237fa4875ff3'
         fail_ci_if_error: true
