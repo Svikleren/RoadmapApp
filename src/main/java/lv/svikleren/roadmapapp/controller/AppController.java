@@ -2,6 +2,8 @@ package lv.svikleren.roadmapapp.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lv.svikleren.roadmapapp.dto.ContactDto;
+import lv.svikleren.roadmapapp.mapper.PersonMapper;
 import lv.svikleren.roadmapapp.model.Person;
 import lv.svikleren.roadmapapp.service.PersonService;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ import static lv.svikleren.roadmapapp.constants.Constants.REDIRECT_TO_MAIN_PAGE;
 public class AppController {
 
     private final PersonService personService;
+    private final PersonMapper mapper;
+
 
     @GetMapping("/")
     public String getAllContacts(Model model) {
@@ -30,18 +34,18 @@ public class AppController {
     }
 
     @GetMapping("/add")
-    public String showAddContactPage(Person person) {
+    public String showAddContactPage(ContactDto contactDto) {
         return "addContact";
     }
 
     @PostMapping("/addContact")
-    public String addContact(Person person, BindingResult result, Model model) {
+    public String addContact(ContactDto contactDto, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             return "addContact";
         }
 
-        personService.addContact(person);
+        personService.addContact(mapper.dtoToPerson(contactDto));
         return REDIRECT_TO_MAIN_PAGE;
     }
 
