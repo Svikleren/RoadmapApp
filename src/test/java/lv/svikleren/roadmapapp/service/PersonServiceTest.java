@@ -33,12 +33,12 @@ public class PersonServiceTest {
     private PersonMapper personMapper;
 
     @InjectMocks
-    private PersonService personService;
+    private PersonServiceImpl personServiceImpl;
 
     @Test
     public void getAllContacts() {
 
-        personService.getAllContacts();
+        personServiceImpl.getAllContacts();
         verify(personRepository, times(1)).findAll();
     }
 
@@ -50,12 +50,12 @@ public class PersonServiceTest {
 
         when(dataValidationService.validateData(any())).thenReturn(true);
 
-        Logger logger = (Logger) LoggerFactory.getLogger(PersonService.class);
+        Logger logger = (Logger) LoggerFactory.getLogger(PersonServiceImpl.class);
         ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
         listAppender.start();
         logger.addAppender(listAppender);
 
-        personService.addContact(contactDto);
+        personServiceImpl.addContact(contactDto);
 
         verify(personRepository, times(1)).save(any());
 
@@ -73,12 +73,12 @@ public class PersonServiceTest {
 
         when(dataValidationService.validateData(any())).thenReturn(false);
 
-        Logger logger = (Logger) LoggerFactory.getLogger(PersonService.class);
+        Logger logger = (Logger) LoggerFactory.getLogger(PersonServiceImpl.class);
         ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
         listAppender.start();
         logger.addAppender(listAppender);
 
-        personService.addContact(person);
+        personServiceImpl.addContact(person);
 
         verify(personRepository, times(0)).save(any());
 
@@ -92,16 +92,15 @@ public class PersonServiceTest {
     public void getItemById() {
 
         when(personRepository.findById(any())).thenReturn(java.util.Optional.of(new Person()));
-        personService.getItemById(1L);
+        personServiceImpl.getItemById(1L);
         verify(personRepository, times(0)).save(any());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void getItemByIdException() {
 
-        //when(personRepository.findById(any())).thenReturn(java.util.Optional.of(new Person()));
         try {
-            personService.getItemById(1L);
+            personServiceImpl.getItemById(1L);
         } catch (IllegalArgumentException ex) {
             assertEquals("Invalid person Id:1", ex.getMessage());
             throw ex;
@@ -117,12 +116,12 @@ public class PersonServiceTest {
 
         when(dataValidationService.validateData(any())).thenReturn(true);
 
-        Logger logger = (Logger) LoggerFactory.getLogger(PersonService.class);
+        Logger logger = (Logger) LoggerFactory.getLogger(PersonServiceImpl.class);
         ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
         listAppender.start();
         logger.addAppender(listAppender);
 
-        personService.updateContact(person);
+        personServiceImpl.updateContact(person);
 
         verify(personRepository, times(1)).save(any());
 
@@ -140,12 +139,12 @@ public class PersonServiceTest {
 
         when(dataValidationService.validateData(any())).thenReturn(false);
 
-        Logger logger = (Logger) LoggerFactory.getLogger(PersonService.class);
+        Logger logger = (Logger) LoggerFactory.getLogger(PersonServiceImpl.class);
         ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
         listAppender.start();
         logger.addAppender(listAppender);
 
-        personService.updateContact(person);
+        personServiceImpl.updateContact(person);
 
         verify(personRepository, times(0)).save(any());
 
@@ -158,12 +157,12 @@ public class PersonServiceTest {
     @Test
     public void deleteContact() {
 
-        Logger logger = (Logger) LoggerFactory.getLogger(PersonService.class);
+        Logger logger = (Logger) LoggerFactory.getLogger(PersonServiceImpl.class);
         ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
         listAppender.start();
         logger.addAppender(listAppender);
 
-        personService.deleteContact(1L);
+        personServiceImpl.deleteContact(1L);
 
         verify(personRepository, times(1)).deleteById(1L);
 
