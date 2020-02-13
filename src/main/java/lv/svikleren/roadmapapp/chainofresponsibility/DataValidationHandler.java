@@ -8,12 +8,7 @@ public abstract class DataValidationHandler {
     public DataValidationHandler(DataValidationHandler dataValidationHandler) {
         this.nextValidator = dataValidationHandler;
     }
-
-    public DataValidationHandler linkWith(DataValidationHandler nextValidator) {
-        this.nextValidator = nextValidator;
-        return nextValidator;
-    }
-
+    
     public abstract boolean checkData(Person personToValidate);
 
     protected boolean checkNext(Person personToValidate) {

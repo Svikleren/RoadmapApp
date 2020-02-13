@@ -39,4 +39,40 @@ public class DataValidationServiceTest {
 
         assertFalse(dataValidationService.validateData(person));
     }
+
+    @Test
+    public void validateDataPhoneNumberEmpty() {
+
+        person.setPhoneNumber("");
+        person.setEmail("aaa@bbb.cc");
+
+        assertTrue(dataValidationService.validateData(person));
+    }
+
+    @Test
+    public void validateDataEmailEmpty() {
+
+        person.setPhoneNumber("12345678");
+        person.setEmail("");
+
+        assertTrue(dataValidationService.validateData(person));
+    }
+
+    @Test
+    public void validateDataPhoneNumberNull() {
+
+        person.setPhoneNumber(null);
+        person.setEmail("aaa@bbb.cc");
+
+        assertTrue(dataValidationService.validateData(person));
+    }
+
+    @Test
+    public void validateDataEmailNull() {
+
+        person.setPhoneNumber("12345678");
+        person.setEmail(null);
+
+        assertTrue(dataValidationService.validateData(person));
+    }
 }
