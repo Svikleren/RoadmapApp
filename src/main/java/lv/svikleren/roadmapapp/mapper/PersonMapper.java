@@ -10,6 +10,7 @@ public class PersonMapper {
 
     public Person dtoToPerson(ContactDto contactDto) {
         Person person = new Person();
+        person.setId(wrapId(contactDto));
         person.setName(contactDto.getName());
         person.setSurname(contactDto.getSurname());
         person.setGroup(contactDto.getGroup());
@@ -22,7 +23,7 @@ public class PersonMapper {
 
     public ContactDto personToDto(Person person) {
         ContactDto contactDto = new ContactDto();
-
+        contactDto.setId(wrapId(person));
         contactDto.setName(person.getName());
         contactDto.setSurname(person.getSurname());
         contactDto.setGroup(person.getGroup());
@@ -31,5 +32,13 @@ public class PersonMapper {
         contactDto.setComments(person.getComments());
 
         return contactDto;
+    }
+
+    private Long wrapId(ContactDto contactDto) {
+        return contactDto.getId() == null ? 0 : contactDto.getId();
+    }
+
+    private Long wrapId(Person person) {
+        return person.getId() == null ? 0 : person.getId();
     }
 }

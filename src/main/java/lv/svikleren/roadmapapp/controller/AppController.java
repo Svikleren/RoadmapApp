@@ -3,8 +3,6 @@ package lv.svikleren.roadmapapp.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lv.svikleren.roadmapapp.dto.ContactDto;
-import lv.svikleren.roadmapapp.mapper.PersonMapper;
-import lv.svikleren.roadmapapp.model.Person;
 import lv.svikleren.roadmapapp.service.PersonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +21,11 @@ import static lv.svikleren.roadmapapp.constants.Constants.REDIRECT_TO_MAIN_PAGE;
 public class AppController {
 
     private final PersonService personService;
-    private final PersonMapper mapper;
-
 
     @GetMapping("/")
     public String getAllContacts(Model model) {
 
-        model.addAttribute("contacts", personService.getAllContacts());
+        model.addAttribute("persons", personService.getAllContacts());
         return "index";
     }
 
@@ -39,34 +35,33 @@ public class AppController {
     }
 
     @PostMapping("/addContact")
-    public String addContact(ContactDto contactDto, BindingResult result, Model model) {
+    public String addContact(@Valid ContactDto contactDto, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             return "addContact";
         }
 
-        personService.addContact(mapper.dtoToPerson(contactDto));
+        personService.addContact(contactDto);
         return REDIRECT_TO_MAIN_PAGE;
     }
 
     @GetMapping("/editContact/{id}")
     public String showEditContactPage(@PathVariable Long id, Model model) {
 
-        Person person = personService.getItemById(id);
-        model.addAttribute("person", person);
+        model.addAttribute("person", personService.getItemById(id));
 
         return "editContact";
     }
 
     @PostMapping("/updateContact/{id}")
-    public String updateContact(@PathVariable("id") Long id, @Valid Person person, BindingResult result,
+    public String updateContact(@PathVariable("id") Long id, @Valid ContactDto contactDto, BindingResult result,
                                 Model model) {
         if (result.hasErrors()) {
-            person.setId(id);
+            contactDto.setId(id);
             return "editContact";
         }
 
-        personService.updateContact(person);
+        personService.updateContact(contactDto);
         return REDIRECT_TO_MAIN_PAGE;
     }
 

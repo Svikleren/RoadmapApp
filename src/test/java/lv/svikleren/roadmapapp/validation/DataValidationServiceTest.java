@@ -1,6 +1,6 @@
 package lv.svikleren.roadmapapp.validation;
 
-import lv.svikleren.roadmapapp.model.Person;
+import lv.svikleren.roadmapapp.dto.ContactDto;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 public class DataValidationServiceTest {
 
-    Person person = new Person();
+    ContactDto person = new ContactDto();
 
     DataValidationService dataValidationService = new DataValidationService();
 

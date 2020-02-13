@@ -1,6 +1,6 @@
 package lv.svikleren.roadmapapp.chainofresponsibility;
 
-import lv.svikleren.roadmapapp.model.Person;
+import lv.svikleren.roadmapapp.dto.ContactDto;
 
 public abstract class DataValidationHandler {
     private DataValidationHandler nextValidator;
@@ -8,10 +8,10 @@ public abstract class DataValidationHandler {
     public DataValidationHandler(DataValidationHandler dataValidationHandler) {
         this.nextValidator = dataValidationHandler;
     }
-    
-    public abstract boolean checkData(Person personToValidate);
 
-    protected boolean checkNext(Person personToValidate) {
+    public abstract boolean checkData(ContactDto personToValidate);
+
+    protected boolean checkNext(ContactDto personToValidate) {
         if (nextValidator == null) {
             return true;
         }

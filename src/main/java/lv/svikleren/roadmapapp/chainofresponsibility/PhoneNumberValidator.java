@@ -1,6 +1,6 @@
 package lv.svikleren.roadmapapp.chainofresponsibility;
 
-import lv.svikleren.roadmapapp.model.Person;
+import lv.svikleren.roadmapapp.dto.ContactDto;
 
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -13,7 +13,7 @@ public class PhoneNumberValidator extends DataValidationHandler {
     }
 
     @Override
-    public boolean checkData(Person personToValidatePhoneNumber) {
+    public boolean checkData(ContactDto personToValidatePhoneNumber) {
         Optional<String> phoneNumberToValidate = Optional.ofNullable(personToValidatePhoneNumber.getPhoneNumber());
         if (!phoneNumberToValidate.isPresent() || phoneNumberToValidate.get().isEmpty()) {
             return checkNext(personToValidatePhoneNumber);

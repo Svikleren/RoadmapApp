@@ -36,7 +36,7 @@ public class AppControllerTest {
     public void setUp() {
 
         initMocks(this);
-        AppController controller = new AppController(personService, personMapper);
+        AppController controller = new AppController(personService);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 

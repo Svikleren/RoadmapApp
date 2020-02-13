@@ -1,6 +1,6 @@
 package lv.svikleren.roadmapapp.chainofresponsibility;
 
-import lv.svikleren.roadmapapp.model.Person;
+import lv.svikleren.roadmapapp.dto.ContactDto;
 
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -14,7 +14,7 @@ public class EmailValidator extends DataValidationHandler {
     }
 
     @Override
-    public boolean checkData(Person personToValidateEmail) {
+    public boolean checkData(ContactDto personToValidateEmail) {
         Optional<String> emailToValidate = Optional.ofNullable(personToValidateEmail.getEmail());
         if (!emailToValidate.isPresent() || emailToValidate.get().isEmpty()) {
             return checkNext(personToValidateEmail);

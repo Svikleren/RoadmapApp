@@ -4,6 +4,8 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
+import lv.svikleren.roadmapapp.dto.ContactDto;
+import lv.svikleren.roadmapapp.mapper.PersonMapper;
 import lv.svikleren.roadmapapp.model.Person;
 import lv.svikleren.roadmapapp.repository.PersonRepository;
 import lv.svikleren.roadmapapp.validation.DataValidationService;
@@ -11,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +29,8 @@ public class PersonServiceTest {
     private PersonRepository personRepository;
     @Mock
     private DataValidationService dataValidationService;
+    @Spy
+    private PersonMapper personMapper;
 
     @InjectMocks
     private PersonService personService;
@@ -40,8 +45,8 @@ public class PersonServiceTest {
     @Test
     public void addContact() {
 
-        Person person = new Person();
-        person.setId(1L);
+        ContactDto contactDto = new ContactDto();
+        contactDto.setId(1L);
 
         when(dataValidationService.validateData(any())).thenReturn(true);
 
@@ -50,7 +55,7 @@ public class PersonServiceTest {
         listAppender.start();
         logger.addAppender(listAppender);
 
-        personService.addContact(person);
+        personService.addContact(contactDto);
 
         verify(personRepository, times(1)).save(any());
 
@@ -63,7 +68,7 @@ public class PersonServiceTest {
     @Test
     public void addContactWrong() {
 
-        Person person = new Person();
+        ContactDto person = new ContactDto();
         person.setId(1L);
 
         when(dataValidationService.validateData(any())).thenReturn(false);
@@ -107,7 +112,7 @@ public class PersonServiceTest {
     @Test
     public void updateContact() {
 
-        Person person = new Person();
+        ContactDto person = new ContactDto();
         person.setId(1L);
 
         when(dataValidationService.validateData(any())).thenReturn(true);
@@ -130,7 +135,7 @@ public class PersonServiceTest {
     @Test
     public void updateContactWrong() {
 
-        Person person = new Person();
+        ContactDto person = new ContactDto();
         person.setId(1L);
 
         when(dataValidationService.validateData(any())).thenReturn(false);
