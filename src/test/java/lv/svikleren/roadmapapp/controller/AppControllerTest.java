@@ -1,7 +1,7 @@
 package lv.svikleren.roadmapapp.controller;
 
 import lv.svikleren.roadmapapp.mapper.PersonMapper;
-import lv.svikleren.roadmapapp.service.PersonService;
+import lv.svikleren.roadmapapp.service.PersonServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ public class AppControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private PersonService personService;
+    private PersonServiceImpl personServiceImpl;
 
     private PersonMapper personMapper = new PersonMapper();
 
@@ -36,7 +36,7 @@ public class AppControllerTest {
     public void setUp() {
 
         initMocks(this);
-        AppController controller = new AppController(personService);
+        AppController controller = new AppController(personServiceImpl);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
@@ -49,7 +49,7 @@ public class AppControllerTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
 
-        verify(personService, times(1)).getAllContacts();
+        verify(personServiceImpl, times(1)).getAllContacts();
     }
 
     @Test
@@ -71,7 +71,7 @@ public class AppControllerTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().is3xxRedirection());
 
-        verify(personService, times(1)).addContact(any());
+        verify(personServiceImpl, times(1)).addContact(any());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class AppControllerTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().isOk());
 
-        verify(personService, times(1)).getItemById(any());
+        verify(personServiceImpl, times(1)).getItemById(any());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class AppControllerTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().is3xxRedirection());
 
-        verify(personService, times(1)).updateContact(any());
+        verify(personServiceImpl, times(1)).updateContact(any());
     }
 
     @Test
@@ -110,6 +110,6 @@ public class AppControllerTest {
         mockMvc.perform(mockRequest)
                 .andExpect(status().is3xxRedirection());
 
-        verify(personService, times(1)).deleteContact(any());
+        verify(personServiceImpl, times(1)).deleteContact(any());
     }
 }

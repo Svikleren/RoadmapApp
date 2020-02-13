@@ -1,4 +1,4 @@
-package lv.svikleren.roadmapapp.chainofresponsibility;
+package lv.svikleren.roadmapapp.validation;
 
 import lv.svikleren.roadmapapp.dto.ContactDto;
 

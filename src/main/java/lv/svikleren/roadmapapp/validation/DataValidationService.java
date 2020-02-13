@@ -1,9 +1,6 @@
 package lv.svikleren.roadmapapp.validation;
 
 import lombok.extern.slf4j.Slf4j;
-import lv.svikleren.roadmapapp.chainofresponsibility.DataValidationHandler;
-import lv.svikleren.roadmapapp.chainofresponsibility.EmailValidator;
-import lv.svikleren.roadmapapp.chainofresponsibility.PhoneNumberValidator;
 import lv.svikleren.roadmapapp.dto.ContactDto;
 import org.springframework.stereotype.Service;
 
