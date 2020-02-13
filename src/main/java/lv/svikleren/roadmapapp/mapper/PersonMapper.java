@@ -3,7 +3,9 @@ package lv.svikleren.roadmapapp.mapper;
 
 import lv.svikleren.roadmapapp.dto.ContactDto;
 import lv.svikleren.roadmapapp.model.Person;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PersonMapper {
 
     public Person dtoToPerson(ContactDto contactDto) {

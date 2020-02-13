@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class InitDataBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
     private void initData() {
 

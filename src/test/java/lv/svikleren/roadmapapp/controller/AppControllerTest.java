@@ -1,5 +1,6 @@
 package lv.svikleren.roadmapapp.controller;
 
+import lv.svikleren.roadmapapp.mapper.PersonMapper;
 import lv.svikleren.roadmapapp.service.PersonService;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +27,8 @@ public class AppControllerTest {
     @Mock
     private PersonService personService;
 
+    private PersonMapper personMapper = new PersonMapper();
+
     @Mock
     Model model;
 
@@ -33,7 +36,7 @@ public class AppControllerTest {
     public void setUp() {
 
         initMocks(this);
-        AppController controller = new AppController(personService);
+        AppController controller = new AppController(personService, personMapper);
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 

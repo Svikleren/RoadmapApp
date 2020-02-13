@@ -14,31 +14,31 @@ public class PersonBuilderImpl implements PersonBuilder {
 
     @Override
     public PersonBuilder setSurname(String surname) {
-        person.setName(surname);
+        person.setSurname(surname);
         return this;
     }
 
     @Override
     public PersonBuilder setGroup(String group) {
-        person.setName(group);
+        person.setGroup(group);
         return this;
     }
 
     @Override
     public PersonBuilder setPhoneNumber(String phoneNumber) {
-        person.setName(phoneNumber);
+        person.setPhoneNumber(phoneNumber);
         return this;
     }
 
     @Override
     public PersonBuilder setEmail(String email) {
-        person.setName(email);
+        person.setEmail(email);
         return this;
     }
 
     @Override
     public PersonBuilder setComments(String comments) {
-        person.setName(comments);
+        person.setComments(comments);
         return this;
     }
 
